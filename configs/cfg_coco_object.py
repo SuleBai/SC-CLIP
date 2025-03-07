@@ -3,10 +3,7 @@ _base_ = './base_config.py'
 # model settings
 model = dict(
     name_path='./configs/cls_coco_object.txt',
-    # for ViT-B/16
     logit_scale=55, prob_thd=0.35
-    # for ViT-L/14
-    # prob_thd=0.25
 )
 
 # dataset settings

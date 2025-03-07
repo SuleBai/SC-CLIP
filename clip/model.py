@@ -8,7 +8,6 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 from torch import nn
-from sklearn.neighbors import LocalOutlierFactor
 import torchvision.transforms.functional as VF
 
 class Bottleneck(nn.Module):
@@ -206,6 +205,28 @@ class Transformer(nn.Module):
         return self.resblocks(x)
     
 
+def lof_pytorch(x, n_neighbors=30, contamination=0.05):
+    distances = torch.norm(x[:, None] - x[None, :], dim=2, p=2) ** 2
+
+    knn_distances, knn_indices = torch.topk(distances, k=n_neighbors+1, largest=False)
+    knn_distances, knn_indices = knn_distances[:, 1:], knn_indices[:, 1:]
+
+    k_distances = knn_distances[:, -1].unsqueeze(1).expand_as(knn_distances)
+    reach_distances = torch.max(knn_distances, k_distances)
+
+    LRD = n_neighbors / torch.nan_to_num(reach_distances.mean(dim=1), nan=1e-6)
+
+    LRD_ratios = LRD[knn_indices] / LRD.unsqueeze(1)
+    LOF_scores = LRD_ratios.mean(dim=1)
+
+    threshold = torch.quantile(LOF_scores.to(torch.float32), 1 - contamination)
+
+    outlier_mask = LOF_scores > threshold
+    outlier_indices = torch.where(outlier_mask)[0]
+
+    return outlier_indices, LOF_scores
+
+
 class VisionTransformer(nn.Module):
     def __init__(self, input_resolution: int, patch_size: int, width: int, layers: int, heads: int, output_dim: int):
         super().__init__()
@@ -250,20 +271,8 @@ class VisionTransformer(nn.Module):
             feats_list.append(x)
             if idx == len(self.transformer.resblocks) - 1:
                 cls_token = x[:1, ...]
-                
-                # use either LOF or l2-norm to detect outliers (both achieving the same results with l2-norm running faster)
-                
-                # 1. use LOF to detect outliers
-                # data_np = x[1:, ...].squeeze(1).detach().cpu().numpy()
-                # lof = LocalOutlierFactor(n_neighbors=30, contamination=0.05)
-                # labels = lof.fit_predict(data_np)
-                # outlier_indices = np.where(labels == -1)[0]
-                # top_indices = [(torch.div(index, feat_w, rounding_mode='trunc'), index % feat_w) for index in outlier_indices]
-
-                # 2. use l2-norm to detect outliers
-                norms = torch.norm(x[1:, ...].squeeze(1), dim=1)
-                sorted_norms, sorted_indices = torch.sort(norms, descending=True)
-                top_indices = [(torch.div(index.detach().cpu(), feat_w, rounding_mode='trunc'), index.detach().cpu() % feat_w) for index in sorted_indices[:10]]
+                outlier_indices, LOF_scores = lof_pytorch(x[1:, ...].squeeze(1), n_neighbors=30, contamination=0.05)
+                top_indices = [(torch.div(index, feat_w, rounding_mode='trunc'), index % feat_w) for index in outlier_indices]
                 feature_map = x[1:, :, :].permute(1, 2, 0).reshape(B, self.width, feat_w, feat_h)
                 feature_map = self.mean_interpolation(feature_map, top_indices)
                 x = feature_map.reshape(B, self.width, feat_w * feat_h).permute(2, 0, 1)

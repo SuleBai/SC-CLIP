@@ -4,10 +4,7 @@ _base_ = './base_config.py'
 model = dict(
     name_path='./configs/cls_voc21.txt',
     area_thd=0.1,
-    # for ViT-B/16
-    logit_scale=50, prob_thd=0.15,
-    # for ViT-L/14
-    # prob_thd=0.2
+    logit_scale=50, prob_thd=0.15
 )
 
 # dataset settings

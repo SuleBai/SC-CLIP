@@ -1,4 +1,3 @@
-# for ViT-B/16
 model = dict(
     type='SCCLIPForSegmentation',
     clip_path='ViT-B/16',
@@ -8,17 +7,6 @@ model = dict(
     multi_end_idx=10,
     res_cls=0.3
 )
-
-# for ViT-L/14
-# model = dict(
-#     type='SCCLIPForSegmentation',
-#     clip_path='ViT-L/14',
-#     pre_adjust_idx=16,
-#     post_adjust_idx=6,
-#     multi_start_idx=8,
-#     multi_end_idx=19,
-#     res_cls=0.1
-# )
 
 test_evaluator = dict(type='IoUMetric', iou_metrics=['mIoU'])
 
