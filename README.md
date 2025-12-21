@@ -1,11 +1,10 @@
 <div align="center">
-<h1>  Self-Calibrated CLIP for Training-Free Open-Vocabulary Segmentation [IEEE T-IP 2025] </h1>
+<h1>  Self-Calibrated CLIP for Training-Free Open-Vocabulary Segmentation [IEEE TIP 2025] </h1>
 <div align="center">
 <img src="figs/scclip.jpg"  width="600"/>
 </div>
 <br>
-<!-- <a href='https://arxiv.org/abs/2411.15869'><img src='https://img.shields.io/badge/ArXiv-2411.15869-red'></a> 
-<br> -->
+<a href='https://ieeexplore.ieee.org/document/11291123'><img src='https://img.shields.io/badge/Paper-Link-A42C25?style=flat&logo=arXiv&logoColor=A42C25'></a> 
 <div>
 <a href="https://sulebai.github.io/">Sule Bai*</a>,
 <a href="https://yongliu20.github.io/">Yong Liu*</a>,
@@ -69,3 +68,18 @@ bash ./dist_test.sh
 
 ## 🌹 Acknowledgement
 This implementation is based on [CLIP](https://github.com/openai/CLIP), [SCLIP](https://github.com/wangf3014/SCLIP), [CLIP-DINOiser](https://github.com/wysoczanska/clip_dinoiser) and [ClearCLIP](https://github.com/mc-lan/ClearCLIP). Thanks for the awesome work.
+
+## 📃 Bibtex
+If this work is helpful for your research, please consider citing the following BibTeX entry.
+
+```
+@article{bai2025self,
+  title={Self-Calibrated CLIP for Training-Free Open-Vocabulary Segmentation}, 
+  author={Bai, Sule and Liu, Yong and Han, Yifei and Zhang, Haoji and Tang, Yansong and Zhou, Jie and Lu, Jiwen},
+  journal={IEEE Transactions on Image Processing}, 
+  year={2025},
+  volume={34},
+  pages={8271-8284},
+  publisher={IEEE}
+}
+```
