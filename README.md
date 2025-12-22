@@ -20,7 +20,7 @@
 </div>
 
 ## 🔥 News
-* This paper has been accepted by IEEE Transactions on Image Processing (T-IP).
+* This paper has been accepted by IEEE Transactions on Image Processing (TIP).
 
 ## 📖 Overview
 1. We propose SC-CLIP, a training-free method designed to enhance CLIP's dense feature representation, effectively addressing the uniform attention activations and feature homogenization caused by the anomaly tokens.
@@ -47,7 +47,7 @@ We provide the dataset configurations in this repository, following [SCLIP](http
 Please follow the [MMSeg data preparation document](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/en/user_guides/2_dataset_prepare.md) to download and pre-process the datasets. The COCO-Object dataset can be converted from COCO-Stuff164k by executing the following command:
 
 ```
-python ./datasets/cvt_coco_object.py PATH_TO_COCO_STUFF164K -o PATH_TO_COCO_OBJECT
+python datasets/cvt_coco_object.py PATH_TO_COCO_STUFF164K -o PATH_TO_COCO_OBJECT
 ```
 ## 🔥 Demo
 ```
@@ -58,12 +58,12 @@ python demo.py
 Single-GPU running:
 
 ```
-python eval.py --config ./configs/cfg_DATASET.py --workdir YOUR_WORK_DIR
+python eval.py --config configs/cfg_DATASET.py --workdir YOUR_WORK_DIR
 ```
 
 Multi-GPU running:
 ```
-bash ./dist_test.sh
+bash dist_test.sh
 ```
 
 ## 🌹 Acknowledgement
@@ -74,12 +74,10 @@ If this work is helpful for your research, please consider citing the following 
 
 ```
 @article{bai2025self,
-  title={Self-Calibrated CLIP for Training-Free Open-Vocabulary Segmentation}, 
+  title={Self-calibrated clip for training-free open-vocabulary segmentation},
   author={Bai, Sule and Liu, Yong and Han, Yifei and Zhang, Haoji and Tang, Yansong and Zhou, Jie and Lu, Jiwen},
-  journal={IEEE Transactions on Image Processing}, 
+  journal={IEEE Transactions on Image Processing},
   year={2025},
-  volume={34},
-  pages={8271-8284},
   publisher={IEEE}
 }
 ```
