@@ -4,7 +4,8 @@
 <img src="figs/scclip.jpg"  width="600"/>
 </div>
 <br>
-<a href='https://ieeexplore.ieee.org/document/11291123'><img src='https://img.shields.io/badge/Paper-Link-A42C25?style=flat&logo=arXiv&logoColor=A42C25'></a> 
+<a href='https://arxiv.org/abs/2411.15869'><img src='https://img.shields.io/badge/ArXiv-2411.15869-A42C25?style=flat&logo=arXiv&logoColor=A42C25'></a> 
+<a href='https://ieeexplore.ieee.org/document/11291123'><img src='https://img.shields.io/badge/IEEE-TIP-blue?style=flat&logo=ieee&logoColor=blue'></a>
 <div>
 <a href="https://sulebai.github.io/">Sule Bai*</a>,
 <a href="https://yongliu20.github.io/">Yong Liu*</a>,
